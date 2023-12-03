@@ -4,69 +4,60 @@ import Magician from '../magician';
 import Undead from '../undead';
 import Zombie from '../zombie';
 import Daemon from '../daemon';
-import Character from '../character';
+import Character from "../Character";
 
-test('Проверка характеристик', () => {
-  expect(new Character('SomeName', 'Daemon')).toEqual({
-    attack: 0, defence: 0, level: 1, health: 100, name: 'SomeName', type: 'Daemon'
-  });
-});
-
-test('Должен выдать ошибку, если указано неверное имя', () => {
+test('test name', () => {
   expect(() => {
     new Character('J', 'Bowman');
   }).toThrow('Ошибка: Параметра name');
 });
 
-test('проверка типа', () => {
+test('test type', () => {
   expect(() => {
     new Character('Baki', 'Fighter');
   }).toThrow('неверный тип');
 });
 
+describe('test', () => {
+	const testCases = [ {
+		incomingObject: new Character('SomeName', 'Daemon'),
+		expencted: {attack: 0, defence: 0, level: 1, health: 100, name: 'SomeName', type: 'Daemon'}
+	},
+	{
+		incomingObject: new Bowerman('SomeName', 'Bowman' ),
+		expencted: {attack: 25, defence: 25, level: 1, health: 100, name: 'SomeName', type: 'Bowman'}
+	},
+	{	
+		incomingObject: new Swordsman('SomeName', 'Bowman' ),
+		expencted: {attack: 40, defence: 10, level: 1, health: 100, name: 'SomeName', type: 'Swordsman'}
+	},
+	{	
+		incomingObject: new Magician('SomeName', 'Magician'),
+		expencted: {attack: 10, defence: 40, level: 1, health: 100, name: 'SomeName', type: 'Magician'}
+	},
+	{	
+		incomingObject: new Undead('SomeName', 'Undead'),
+		expencted: {attack: 25, defence: 25, level: 1, health: 100, name: 'SomeName', type: 'Undead'}
+	},
+	{	
+		incomingObject: new Zombie('SomeName', 'Zombie'),
+		expencted: {attack: 40, defence: 10, level: 1, health: 100, name: 'SomeName', type: 'Zombie'}
+	},
+	{	
+		incomingObject: new Daemon('SomeName', 'Daemon'),
+		expencted: {attack: 10, defence: 40, level: 1, health: 100, name: 'SomeName', type: 'Daemon'}
+	},
+	];
 
-test('test class for Bowerman', () => {
-  expect(new Bowerman('SomeName', 'Bowman' )).toEqual({
-    attack: 25, defence: 25, level: 1, health: 100, name: 'SomeName', type: 'Bowman'
-  });
-});
-
-test('test class for Swordsman', () => {
-  const swordsman = new Swordsman('SomeName', 'Swordsman');
-  expect(swordsman).toEqual({
-    attack: 40, defence: 10, level: 1, health: 100, name: 'SomeName', type: 'Swordsman'
-  });
-});
-
-test('test class for Magician', () => {
-	const magician = new Magician('SomeName', 'Magician');
-	expect(magician).toEqual({
- attack: 10, defence: 40, level: 1, health: 100, name: 'SomeName', type: 'Magician'
-});
-});
-
-test('test class for Undead', () => {
-	const undead = new Undead('SomeName', 'Undead');
-	expect(undead).toEqual({
- attack: 25, defence: 25, level: 1, health: 100, name: 'SomeName', type: 'Undead'
-});
-});
-
-test('test class for Zombie', () => {
-	const zombie = new Zombie('SomeName', 'Zombie');
-	expect(zombie).toEqual({
- attack: 40, defence: 10, level: 1, health: 100, name: 'SomeName', type: 'Zombie'
-});
-});
-
-test('test class for Daemon', () => {
-	const daemon = new Daemon('SomeName', 'Daemon');
-	expect(daemon).toEqual({
- attack: 10, defence: 40, level: 1, health: 100, name: 'SomeName', type: 'Daemon'
-});
+	testCases.forEach(test => {
+		it(`test ${test.incomingObject.type}`, () => {
+			const result = test.incomingObject
+			expect(result).toEqual(test.expencted)
+		})
+ 	})
 });
 
-test('test class for levelUp function for Bowerman', () => {
+test('test function levelUP', () => {
 	const bowerman = new Bowerman('SomeName' ,'Bowman');
 	bowerman.health = 50;
 	bowerman.levelUp();
@@ -75,25 +66,6 @@ test('test class for levelUp function for Bowerman', () => {
 });
 });
 
-test('test class for levelUp function for Swordsman', () => {
-	const swordsman = new Swordsman('SomeName', 'Swordsman' );
-	swordsman.health = 20;
-	swordsman.levelUp();
-	expect(swordsman).toEqual({
- attack: 48, defence: 12, level: 2, health: 100, name: 'SomeName', type: 'Swordsman'
-});
-});
-
-test('test class for levelUp function for Magician', () => {
-	const magician = new Magician('SomeName', 'Magician' );
-	magician.levelUp();
-	expect(magician).toEqual({
- attack: 12, defence: 48, level: 2, health: 100, name: 'SomeName', type: 'Magician' 
-});
-});
-
-
-
 test('test function damage', () => {
   const daemon = new Daemon('SomeName', 'Daemon');
   daemon.damage(10);
@@ -101,7 +73,7 @@ test('test function damage', () => {
   });
 });
 
-test('test class for levelUp function for dead Magician', () => {
+test('test function for dead Magician', () => {
 	const magician = new Magician('SomeName', 'Magician');
 	magician.health = 0;
 
