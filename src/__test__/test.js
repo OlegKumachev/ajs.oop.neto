@@ -4,7 +4,7 @@ import Magician from '../magician';
 import Undead from '../undead';
 import Zombie from '../zombie';
 import Daemon from '../daemon';
-import Character from "../Character";
+import Character from '../character';
 
 test('test name', () => {
   expect(() => {
@@ -21,7 +21,7 @@ test('test type', () => {
 describe('test', () => {
 	const testCases = [ {
 		incomingObject: new Character('SomeName', 'Daemon'),
-		expencted: {attack: 0, defence: 0, level: 1, health: 100, name: 'SomeName', type: 'Daemon'}
+		expencted: {attack: undefined, defence: undefined, level: 1, health: 100, name: 'SomeName', type: 'Daemon'}
 	},
 	{
 		incomingObject: new Bowerman('SomeName', 'Bowman' ),
